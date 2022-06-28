@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+  version="3.0"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" metadata-complete="false">
+
+  <display-name>Application</display-name>
+
+  <filter>
+    <filter-name>context</filter-name>
+    <filter-class>com.sucls.security.filter.SessionContextFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>context</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>auth</filter-name>
+    <filter-class>com.sucls.security.filter.AuthFilter</filter-class>
+    <init-param>
+      <param-name>ignorePaths</param-name>
+      <param-value>/webjars/**,/assets/**</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>auth</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>exception</filter-name>
+    <filter-class>com.sucls.security.filter.ExceptionHandlerFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>exception</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>logout</filter-name>
+    <filter-class>com.sucls.security.filter.LogoutFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>logout</filter-name>
+    <url-pattern>/logout</url-pattern>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>dispacher</servlet-name>
+    <servlet-class>com.sucls.security.resource.servlet.ServletDispatcher</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>dispacher</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <!--Webjars Servlet-->
+  <servlet>
+    <servlet-name>WebjarsServlet</servlet-name>
+    <servlet-class>org.webjars.servlet.WebjarsServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WebjarsServlet</servlet-name>
+    <url-pattern>/webjars/*</url-pattern>
+  </servlet-mapping>
+
+  <listener>
+    <listener-class>com.sucls.security.listener.AppHttpSessionListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>com.sucls.security.listener.AppServletContextListener</listener-class>
+  </listener>
+
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/assets/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>
