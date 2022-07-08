@@ -1,3 +1,4 @@
+<%@ page import="com.sucls.security.util.IdentityHolder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 
@@ -99,20 +100,19 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mt-4 mt-lg-0 ml-auto">
                     <li class="nav-item ">
-                        <a class="nav-link" href="index.html">Overview</a>
-                    </li>
-                    <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
-                        <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                        <div class="dropdown-menu dropdown-menu-single">
-                            <a href="index.html" class="dropdown-item">Homepage</a>
-                            <a href="about.html" class="dropdown-item">About us</a>
-                            <a href="contact.html" class="dropdown-item">Contact</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="login.html" class="dropdown-item">Login</a>
-                        </div>
+                        <a class="nav-link" href="index.html">主页</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="docs/index.html">Docs</a>
+                        <a class="nav-link" href="about.html">关于</a>
+                    </li>
+                    <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+                        <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=IdentityHolder.get()%></a>
+                        <div class="dropdown-menu dropdown-menu-single">
+                            <a href="/properties.html" class="dropdown-item">系统环境</a>
+                            <a href="/env.html" class="dropdown-item">系统配置</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/logout" class="dropdown-item">退出</a>
+                        </div>
                     </li>
                 </ul>
                 <!-- Mobile button -->
@@ -175,24 +175,6 @@
             </div>
         </div>
     </section>
-    <section class="slice slice-lg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 col-6">
-                    <img src="assets/img/theme/light/img-v-4.jpg" alt="Image" class="rounded-lg img-fluid" />
-                    <div class="text-right mt-4">
-                        <img src="assets/img/theme/light/img-1-1000x1000.jpg" alt="Image" class="rounded-lg img-fluid w-50" />
-                    </div>
-                </div>
-                <div class="col-lg-7 col-6">
-                    <img src="assets/img/theme/light/img-1-1000x800.jpg" alt="Image" class="rounded-lg img-fluid w-75" />
-                    <div class="text-right mt-4">
-                        <img src="assets/img/theme/light/img-2-1000x800.jpg" alt="Image" class="rounded-lg img-fluid" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <section class="slice slice-lg pt-10 bg-primary">
         <!-- SVG separator -->
         <div class="shape-container shape-line shape-position-top shape-orientation-inverse">
@@ -247,124 +229,6 @@
                                     </p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="slice slice-lg pb-5">
-        <div class="container">
-            <!-- Section title -->
-            <div class="row mb-5 justify-content-center text-center">
-                <div class="col-lg-8 col-md-10">
-                    <h2 class=" mt-4">The amazing team</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-sm-6 mb-5">
-                    <div data-animate-hover="2">
-                        <div class="animate-this">
-                            <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="assets/img/theme/light/person-1.jpg">
-                            </a>
-                        </div>
-                        <div class="mt-3">
-                            <h5 class="h6 mb-0">Heather Wright</h5>
-                            <p class="text-muted text-sm mb-0">Founded &amp; Chairman</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 mb-5">
-                    <div data-animate-hover="2">
-                        <div class="animate-this">
-                            <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="assets/img/theme/light/person-2.jpg">
-                            </a>
-                        </div>
-                        <div class="mt-3">
-                            <h5 class="h6 mb-0">Monroe Parker</h5>
-                            <p class="text-muted text-sm mb-0">Back End Developer</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 mb-5">
-                    <div data-animate-hover="2">
-                        <div class="animate-this">
-                            <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="assets/img/theme/light/person-3.jpg">
-                            </a>
-                        </div>
-                        <div class="mt-3">
-                            <h5 class="h6 mb-0">John Sullivan</h5>
-                            <p class="text-muted text-sm mb-0">Front End Developer</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 mb-5">
-                    <div data-animate-hover="2">
-                        <div class="animate-this">
-                            <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="assets/img/theme/light/person-4.jpg">
-                            </a>
-                        </div>
-                        <div class="mt-3">
-                            <h5 class="h6 mb-0">James Lewis</h5>
-                            <p class="text-muted text-sm mb-0">Vice Chairman</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-sm-6 mb-5 mb-sm-0">
-                    <div data-animate-hover="2">
-                        <div class="animate-this">
-                            <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="assets/img/theme/light/person-5.jpg">
-                            </a>
-                        </div>
-                        <div class="mt-3">
-                            <h5 class="h6 mb-0">Danielle Levin</h5>
-                            <p class="text-muted text-sm mb-0">Sales Manager</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 mb-5 mb-sm-0">
-                    <div data-animate-hover="2">
-                        <div class="animate-this">
-                            <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="assets/img/theme/light/person-6.jpg">
-                            </a>
-                        </div>
-                        <div class="mt-3">
-                            <h5 class="h6 mb-0">Martin Gray</h5>
-                            <p class="text-muted text-sm mb-0">UI/UX Designer</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 mb-5 mb-sm-0">
-                    <div data-animate-hover="2">
-                        <div class="animate-this">
-                            <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="assets/img/theme/light/person-7.jpg">
-                            </a>
-                        </div>
-                        <div class="mt-3">
-                            <h5 class="h6 mb-0">George Squier</h5>
-                            <p class="text-muted text-sm mb-0">Marketing Executive</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 mb-0">
-                    <div data-animate-hover="2">
-                        <div class="animate-this">
-                            <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="assets/img/theme/light/person-8.jpg">
-                            </a>
-                        </div>
-                        <div class="mt-3">
-                            <h5 class="h6 mb-0">Jesse Stevens</h5>
-                            <p class="text-muted text-sm mb-0">Ads Manager</p>
                         </div>
                     </div>
                 </div>

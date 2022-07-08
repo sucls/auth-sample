@@ -1,6 +1,7 @@
 package com.sucls.security.subject;
 
 import java.util.Set;
+import java.util.StringJoiner;
 
 /**
  * @author sucl
@@ -54,5 +55,10 @@ public class WebIdentity implements Identity{
     public WebIdentity setPermissions(Set<String> permissions) {
         this.permissions = permissions;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return principal.toString();
     }
 }
