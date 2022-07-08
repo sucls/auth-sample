@@ -1,11 +1,5 @@
-package com.sucls.security.resource.servlet;
+package com.sucls.security.servlet;
 
-import com.sucls.security.resource.Path;
-import com.sucls.security.resource.RequestMapping;
-import com.sucls.security.resource.handler.AnnotationRequestMappingLoader;
-import com.sucls.security.resource.handler.DefaultRequestMappingHandler;
-import com.sucls.security.resource.handler.RequestMappingHandler;
-import com.sucls.security.resource.handler.RequestMappingLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,28 +15,23 @@ import java.util.Map;
  * @date 2022/6/27 18:11
  * @since 1.0.0
  */
-public class ServletDispatcher extends HttpServlet {
+public class DispatcherServlet extends HttpServlet {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServletDispatcher.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherServlet.class);
 
     private static final String PAGE_PREFIX = "/WEB-INF/pages/";
     private static final String PAGE_SUFFIX = ".jsp";
 
-    private Map<String, RequestMapping> requestMappings;
+    private Map<String, RequestInfo> requestMappings;
 
-    private RequestMappingHandler requestMappingHandler = new DefaultRequestMappingHandler();
+    private RequestPathHandler requestPathHandler = new RequestPathHandler();
 
-    private RequestMappingLoader requestMappingLoader = new AnnotationRequestMappingLoader();
+    private RequestPathParser requestPathParser = new RequestPathParser();
 
     @Override
     public void init() throws ServletException {
-        initRequestMapping();
-    }
-
-    private void initRequestMapping() {
         LOGGER.info(" init  RequestMapping");
-        requestMappings = new HashMap<>();
-        requestMappingLoader.load(requestMappings);
+        requestMappings = requestPathParser.parsePath();
     }
 
     @Override
@@ -78,9 +66,9 @@ public class ServletDispatcher extends HttpServlet {
     }
 
     private void toApi(HttpServletRequest request, HttpServletResponse response, String path) {
-        RequestMapping requestMapping = requestMappings.get(path);
-        if(requestMapping != null){
-            requestMappingHandler.handle(requestMapping,request,response);
+        RequestInfo requestInfo = requestMappings.get(path);
+        if(requestInfo != null){
+            requestPathHandler.handle(requestInfo,request,response);
         }
     }
 

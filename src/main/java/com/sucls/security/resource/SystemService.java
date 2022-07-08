@@ -1,7 +1,7 @@
-package com.sucls.security.resource.service;
+package com.sucls.security.resource;
 
-import com.sucls.security.authz.annotation.Access;
-import com.sucls.security.resource.Path;
+import com.sucls.security.authz.HasRole;
+import com.sucls.security.servlet.Path;
 
 import java.util.Properties;
 
@@ -13,13 +13,13 @@ import java.util.Properties;
 @Path("/system")
 public class SystemService {
 
-    @Access({"ROLE_ADMIN"})
+    @HasRole({"ROLE_ADMIN"})
     @Path("/properties")
     public Properties getProperties(){
         return System.getProperties();
     }
 
-    @Access({"ROLE_USER"})
+    @HasRole({"ROLE_USER"})
     @Path("/env")
     public Object getEnv(){
         return System.getenv();

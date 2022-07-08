@@ -1,4 +1,4 @@
-package com.sucls.security.resource;
+package com.sucls.security.servlet;
 
 import java.lang.reflect.Method;
 
@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
  * @date 2022/6/28 15:08
  * @since 1.0.0
  */
-public class RequestMapping {
+public class RequestInfo {
 
     private Object target;
 
@@ -15,7 +15,7 @@ public class RequestMapping {
 
     private Class[] params;
 
-    public RequestMapping(Object target, Method method, Class[] params) {
+    public RequestInfo(Object target, Method method, Class[] params) {
         this.target = target;
         this.method = method;
         this.params = params;

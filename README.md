@@ -19,6 +19,8 @@
 
 ## 请求
 
+    http://localhost:8080
+
     http://localhost:8080/system/properties  [ROLE_ADMIN]
 
     http://localhost:8080/system/env [ROLE_USER]

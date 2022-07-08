@@ -107,7 +107,7 @@
               <a href="about.html" class="dropdown-item">About us</a>
               <a href="contact.html" class="dropdown-item">Contact</a>
               <div class="dropdown-divider"></div>
-              <a href="login.html" class="dropdown-item">Login</a>
+              <a href="/logout" class="dropdown-item">Logout</a>
             </div>
           </li>
           <li class="nav-item ">

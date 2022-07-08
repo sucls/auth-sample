@@ -19,6 +19,16 @@
   </filter-mapping>
 
   <filter>
+    <filter-name>logout</filter-name>
+    <filter-class>com.sucls.security.filter.LogoutFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>logout</filter-name>
+    <url-pattern>/logout</url-pattern>
+  </filter-mapping>
+
+  <filter>
     <filter-name>auth</filter-name>
     <filter-class>com.sucls.security.filter.AuthFilter</filter-class>
     <init-param>
@@ -32,34 +42,14 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-  <filter>
-    <filter-name>exception</filter-name>
-    <filter-class>com.sucls.security.filter.ExceptionHandlerFilter</filter-class>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>exception</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <filter>
-    <filter-name>logout</filter-name>
-    <filter-class>com.sucls.security.filter.LogoutFilter</filter-class>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>logout</filter-name>
-    <url-pattern>/logout</url-pattern>
-  </filter-mapping>
-
   <servlet>
-    <servlet-name>dispacher</servlet-name>
-    <servlet-class>com.sucls.security.resource.servlet.ServletDispatcher</servlet-class>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>com.sucls.security.servlet.DispatcherServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>dispacher</servlet-name>
+    <servlet-name>dispatcher</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
@@ -73,10 +63,6 @@
     <servlet-name>WebjarsServlet</servlet-name>
     <url-pattern>/webjars/*</url-pattern>
   </servlet-mapping>
-
-  <listener>
-    <listener-class>com.sucls.security.listener.AppHttpSessionListener</listener-class>
-  </listener>
 
   <listener>
     <listener-class>com.sucls.security.listener.AppServletContextListener</listener-class>

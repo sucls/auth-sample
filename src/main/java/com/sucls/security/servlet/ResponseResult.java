@@ -1,4 +1,4 @@
-package com.sucls.security.resource;
+package com.sucls.security.servlet;
 
 /**
  * @author sucl

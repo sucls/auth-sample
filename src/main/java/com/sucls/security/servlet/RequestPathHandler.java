@@ -1,8 +1,6 @@
-package com.sucls.security.resource.handler;
+package com.sucls.security.servlet;
 
 import com.google.gson.Gson;
-import com.sucls.security.resource.RequestMapping;
-import com.sucls.security.resource.ResponseResult;
 import com.sucls.security.subject.Identity;
 import com.sucls.security.util.IdentityHolder;
 
@@ -22,13 +20,12 @@ import java.util.List;
  * @date 2022/6/28 15:12
  * @since 1.0.0
  */
-public class DefaultRequestMappingHandler implements RequestMappingHandler {
+public class RequestPathHandler{
 
-    @Override
-    public void handle(RequestMapping requestMapping, HttpServletRequest request, HttpServletResponse response) {
-        Object service = requestMapping.getTarget();
-        Method method = requestMapping.getMethod();
-        Object[] params = buildServiceMethodParameters(requestMapping,request,response);
+    public void handle(RequestInfo requestInfo, HttpServletRequest request, HttpServletResponse response) {
+        Object service = requestInfo.getTarget();
+        Method method = requestInfo.getMethod();
+        Object[] params = buildServiceMethodParameters(requestInfo,request,response);
         try {
             Object result = method.invoke(service, params);
             handleResponse(result,request,response);
@@ -60,8 +57,8 @@ public class DefaultRequestMappingHandler implements RequestMappingHandler {
         return ResponseResult.ok(result);
     }
 
-    private Object[] buildServiceMethodParameters(RequestMapping requestMapping, HttpServletRequest request, HttpServletResponse response) {
-        Class[] params = requestMapping.getParams();
+    private Object[] buildServiceMethodParameters(RequestInfo requestInfo, HttpServletRequest request, HttpServletResponse response) {
+        Class[] params = requestInfo.getParams();
         if(params == null || params.length ==0){
             return new Object[]{};
         }else{

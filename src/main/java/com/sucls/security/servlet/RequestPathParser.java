@@ -1,14 +1,15 @@
-package com.sucls.security.resource.handler;
+package com.sucls.security.servlet;
 
-import com.sucls.security.resource.Path;
-import com.sucls.security.resource.RequestMapping;
-import net.sf.cglib.proxy.Enhancer;
+import com.sucls.security.aop.MethodAccessInterceptor;
+import com.sucls.security.aop.AopUtils;
+import com.sucls.security.authz.DefaultMethodAccessInterceptor;
 import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,12 +18,13 @@ import java.util.Set;
  * @date 2022/6/28 15:23
  * @since 1.0.0
  */
-public class AnnotationRequestMappingLoader implements RequestMappingLoader{
+public class RequestPathParser {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AnnotationRequestMappingLoader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RequestPathParser.class);
 
-    @Override
-    public void load(Map<String, RequestMapping> requestMappings) {
+    public Map<String, RequestInfo> parsePath() {
+        Map<String, RequestInfo> requestInfoMap = new HashMap<>();
+
         Reflections reflections = new Reflections();
         Set<Class<?>> serviceClazzs = reflections.getTypesAnnotatedWith(Path.class);
 
@@ -33,25 +35,21 @@ public class AnnotationRequestMappingLoader implements RequestMappingLoader{
                 if(!methods.isEmpty()){
                     for (Method method : methods) {
                         String requestPath = classPath.value() + method.getAnnotation(Path.class).value();
-                        if(requestMappings.containsKey(requestPath)){
+                        if(requestInfoMap.containsKey(requestPath)){
                             LOGGER.warn("存在重复服务:{}", requestPath);
                         }
 
                         LOGGER.info("解析{}服务:{}",serviceClazz, requestPath);
 
-                        Object target = buildTargetProxy(serviceClazz);
-                        requestMappings.put(requestPath,new RequestMapping(target, method, method.getParameterTypes()));
+                        Object target = AopUtils.createProxy(serviceClazz, new DefaultMethodAccessInterceptor());
+                        requestInfoMap.put(requestPath,new RequestInfo(target, method, method.getParameterTypes()));
                     }
                 }
             }
         }
+
+        return requestInfoMap;
     }
 
-    private Object buildTargetProxy(Class<?> serviceClazz) {
-        Enhancer enhancer =new Enhancer();
-        enhancer.setSuperclass(serviceClazz);
-        enhancer.setCallback(new TargetMethodInterceptor());
-        return enhancer.create();
-    }
 
 }

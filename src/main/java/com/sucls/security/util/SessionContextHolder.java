@@ -14,7 +14,7 @@ public class SessionContextHolder {
 
     private static SessionContextHolder sessionContextHolder = new SessionContextHolder();
 
-    private static final Map<String,Identity> identityHolder = new ConcurrentHashMap<>();
+    private static final Map<String,Identity> identitys = new ConcurrentHashMap<>();
 
     private SessionContextHolder(){}
 
@@ -23,15 +23,15 @@ public class SessionContextHolder {
     }
 
     public static Identity getIdentity(String key){
-        return identityHolder.get(key);
+        return identitys.get(key);
     }
 
     public static void addIdentity(String key,Identity identity){
-        identityHolder.put(key,identity);
+        identitys.put(key,identity);
     }
 
     public static void removeIdentity(String key){
-        identityHolder.remove(key);
+        identitys.remove(key);
     }
 
 }

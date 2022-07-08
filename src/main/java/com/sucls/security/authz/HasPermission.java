@@ -1,4 +1,4 @@
-package com.sucls.security.authz.annotation;
+package com.sucls.security.authz;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Access {
+public @interface HasPermission {
 
-    String[] value();
+    String value();
 
 }
