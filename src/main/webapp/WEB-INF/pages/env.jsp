@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="Webpixels">
     <title>Quick – Website UI Kit (FREE)</title>
     <!-- Preloader -->
     <style>
@@ -58,7 +57,6 @@
     </script>
     <!-- Favicon -->
     <link rel="icon" href="assets/img/brand/favicon.png" type="image/png"><!-- Font Awesome -->
-<%--    <link rel="stylesheet" href="assets/libs/@fortawesome/fontawesome-free/css/all.min.css">--%>
     <!-- Quick CSS -->
     <link rel="stylesheet" href="assets/css/quick-website.css" id="stylesheet">
     <link rel="stylesheet" href="assets/lib/jquery.json-viewer.js">
@@ -138,8 +136,8 @@
     <!-- Core JS  -->
     <script type="text/javascript" src="webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="webjars/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="webjars/svg-injector/dist/svg-injector.min.js"></script>
-    <script type="text/javascript" src="webjars/feather-icons/dist/feather.min.js"></script>
+<%--    <script type="text/javascript" src="webjars/svg-injector/dist/svg-injector.min.js"></script>--%>
+<%--    <script type="text/javascript" src="webjars/feather-icons/dist/feather.min.js"></script>--%>
     <script type="text/javascript" src="assets/lib/jquery.json-viewer.js"></script>
 
     <!-- Quick JS -->

@@ -10,10 +10,13 @@ import java.util.*;
  * @date 2022/6/27 21:50
  * @since 1.0.0
  */
-public class DefaultAuthenticatingIdentity implements AuthenticatingIdentity{
+public class DefaultAuthenticator implements Authenticator {
 
-    // todo
     private static Map<String, List<String>> userMap = new HashMap<>();
+
+    private PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
+
+    private String defaultPwd = passwordEncoder.encode("123456");
 
     static {
         userMap.put("admin", Arrays.asList("ROLE_ADMIN"));
@@ -39,6 +42,6 @@ public class DefaultAuthenticatingIdentity implements AuthenticatingIdentity{
     }
 
     private boolean checkCredentials(AuthToken authToken) {
-        return Objects.equals(authToken.getCredentials(),"123456");
+        return passwordEncoder.matches(authToken.getCredentials().toString(),defaultPwd);
     }
 }

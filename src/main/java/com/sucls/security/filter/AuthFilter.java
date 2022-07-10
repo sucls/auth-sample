@@ -1,8 +1,8 @@
 package com.sucls.security.filter;
 
 import com.sucls.security.authc.AuthToken;
-import com.sucls.security.authc.AuthenticatingIdentity;
-import com.sucls.security.authc.DefaultAuthenticatingIdentity;
+import com.sucls.security.authc.Authenticator;
+import com.sucls.security.authc.DefaultAuthenticator;
 import com.sucls.security.subject.Identity;
 import com.sucls.security.util.AntPathMatcher;
 import com.sucls.security.util.IdentityHolder;
@@ -32,7 +32,7 @@ public class AuthFilter extends AbstractFilter {
 
     private static List<PatternMatcher> ignoreMatchers = new ArrayList<>();
 
-    private AuthenticatingIdentity authenticatingIdentity = new DefaultAuthenticatingIdentity();
+    private Authenticator authenticator = new DefaultAuthenticator();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -108,7 +108,7 @@ public class AuthFilter extends AbstractFilter {
     private Identity loadIdentity(HttpServletRequest request) {
         AuthToken authToken = buildAuthToken(request);
 
-        Identity identity = authenticatingIdentity.auth(authToken);
+        Identity identity = authenticator.auth(authToken);
 
         return identity;
     }

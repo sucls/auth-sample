@@ -7,6 +7,6 @@ import com.sucls.security.subject.Identity;
  * @date 2022/6/27 21:50
  * @since 1.0.0
  */
-public interface AuthenticatingIdentity {
+public interface Authenticator {
     Identity auth(AuthToken authToken);
 }
