@@ -34,10 +34,11 @@ public class DefaultAuthenticator implements Authenticator {
         if(!checkCredentials(authToken)){
             throw new CredentialsInvalidException(String.format("账号【%s】凭证无效",principal));
         }
-
+        // 构建Identity
         WebIdentity identity = new WebIdentity(principal);
         identity.setRoleIds(new HashSet<>(userMap.get(principal)));
-        identity.setAuthed(true); //
+        // 设置状态为已认证
+        identity.setAuthed(true);
         return identity;
     }
 

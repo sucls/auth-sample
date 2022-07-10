@@ -1,13 +1,11 @@
 package com.sucls.security.authz;
 
 import com.sucls.security.aop.MethodAccess;
-import com.sucls.security.aop.MethodAccessInterceptor;
 import com.sucls.security.subject.Identity;
 import com.sucls.security.util.IdentityHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 

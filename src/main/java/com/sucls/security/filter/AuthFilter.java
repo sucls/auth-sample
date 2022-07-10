@@ -47,37 +47,41 @@ public class AuthFilter extends AbstractFilter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-
-        if(ignoreRequest(httpServletRequest.getRequestURI())){
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        // 如果请求忽略，直接通过
+        if(ignoreRequest(httpRequest.getRequestURI())){
             chain.doFilter(request,response);
             return;
         }
-
-        if(isAuthed(httpServletRequest) || loginUrl.equals(httpServletRequest.getRequestURI())){ //判断用户是否已经认证
+        // 如果用户已经认证，或者是登录请求，直接通过
+        if(isAuthed(httpRequest) || loginUrl.equals(httpRequest.getRequestURI())){ //判断用户是否已经认证
             chain.doFilter(request,response);
             return;
-        }else if(isLogin(httpServletRequest)){ // 判断是否登录请求
+        }
+        // 如果是登录请求 post /login.jsp
+        if(isLogin(httpRequest)){
             Identity identity;
             try {
-                identity = loadIdentity(httpServletRequest);
+                // 将用户名、密码封装成Token
+                AuthToken authToken = buildAuthToken(httpRequest);
+                // 认证Token
+                identity = authenticateToken(authToken);
             } catch (Exception e) {
-                processAuthException(httpServletRequest,httpServletResponse,e);
+                processAuthException(httpRequest,httpResponse,e);
                 return;
             }
-
+            // 将identity保存到上下文
             if(identity != null){
-                HttpSession session = httpServletRequest.getSession(true);
+                HttpSession session = httpRequest.getSession(true);
                 IdentityHolder.set(identity);
                 SessionContextHolder.addIdentity(session.getId(),identity);
-                httpServletResponse.sendRedirect(loginSuccessUrl);
+                httpResponse.sendRedirect(loginSuccessUrl);
                 return;
             }
         }
-
-        httpServletResponse.sendRedirect(loginUrl);
-
+        // 重定向到登录页
+        httpResponse.sendRedirect(loginUrl);
         return;
     }
 
@@ -105,11 +109,8 @@ public class AuthFilter extends AbstractFilter {
         return false;
     }
 
-    private Identity loadIdentity(HttpServletRequest request) {
-        AuthToken authToken = buildAuthToken(request);
-
+    private Identity authenticateToken(AuthToken authToken) {
         Identity identity = authenticator.auth(authToken);
-
         return identity;
     }
 

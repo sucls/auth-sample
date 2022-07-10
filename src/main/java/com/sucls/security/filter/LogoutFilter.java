@@ -30,8 +30,10 @@ public class LogoutFilter extends AbstractFilter {
             //删除session identity
             HttpSession session = httpServletRequest.getSession(false);
             if(session != null){
-                session.invalidate();
                 SessionContextHolder.removeIdentity(session.getId());
+                // 让session失效
+                session.invalidate();
+                // 删除上下文Identity
                 IdentityHolder.remove();
             }
             chain.doFilter(request,response);
